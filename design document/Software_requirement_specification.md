@@ -10,7 +10,8 @@ active cells
 
 # 2.	Overall description
 Input: calcium neuron images
-Output: activated neuron mask 
+
+Output: activated neuron mask(in which the activated neuron is noted in the image)
 
 # 3.	Requirement
 Input data format for calcium neuron images: 
