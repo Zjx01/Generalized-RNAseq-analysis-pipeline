@@ -14,7 +14,11 @@ Calcium Neuron Imaging
     - [ ] Task 2.2.3: Define generate_mask function
   - Activity 2.3: Implement read data and save output and one feature in the analsyis
     - [ ] Task 2.3.1: Implement read image data function
-    - [ ] Task 2.3.2: Implement activation check function: compute activity score for neuron detected in the image
+    - [ ] Task 2.3.2: Implement quality and activation check function: compute activity score for neuron detected in the image
+          - [ ] check the quality of the input image and ensure the image can continue further analysis
+          - [ ] the first implemmentation would be with a mockup input(like a randomly assigned matrix or a simple calcium activated neuron image) and a simple binary output (True/False) whether the imahe passed the foreground and background ratio test
+          - [ ] the qualified images will further undergo the activity score calculation to locate the activated neuron cells 
+
     - [ ] Task 2.3.3: Implement generate mask function: to delineate the shape of activated neuron in the image
   - Activity 2.4: Test prototype 
 - Activity 3: Build prototype II
