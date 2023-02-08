@@ -14,5 +14,5 @@ Input: calcium neuron images
 Output: activated neuron mask(in which the activated neuron is noted in the image)
 
 # 3.	Requirement
-Input data format for calcium neuron images: TIFF images recording the neuron activity within particular region
+Input data format for calcium neuron images: TIFF images recording the neuron activity within a particular region
 
