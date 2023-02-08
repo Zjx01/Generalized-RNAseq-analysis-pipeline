@@ -6,4 +6,4 @@ dataset is around 1 GB zipped, and represents a single imaging plane varying
 over time. Labels are provided only for training data.
 
 
-Data linkage: http://neurofinder.codeneuro.org/
+Data linkage:[ http://neurofinder.codeneuro.org/](https://s3.amazonaws.com/neuro.datasets/challenges/neurofinder/neurofinder.00.00.zip)
