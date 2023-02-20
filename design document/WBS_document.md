@@ -1,4 +1,4 @@
-Calcium Neuron Imaging 
+Generalized RNA-seq pipeline
 
 - Activity 1: Set up GitHub repository
   - [X] Task 1.1: Set up GitHub repository
