@@ -12,7 +12,7 @@ Generalized RNA-seq pipeline
     - [ ] Task 2.2.1: Define read in data function
     - [ ] Task 2.2.2: Define data processing function 
     - [ ] Task 2.2.3: Define data analysis and visualization function 
-  - Activity 2.3: Implement read data and save output and one feature in the analsyis
+  - Activity 2.3: Implement read data and save output in the analsyis
     - [ ] Task 2.3.1: Implement data downlaod function
     - [ ] Task 2.3.2: Implement seq data processing function: perform quality control and trim and alignment for reads.
           - [ ] generated fastq file and performed quality control, followed by trim and alignment for reads
