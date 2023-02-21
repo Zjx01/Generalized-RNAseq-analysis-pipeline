@@ -13,12 +13,13 @@ Generalized RNA-seq pipeline
     - [ ] Task 2.2.2: Define data processing function 
     - [ ] Task 2.2.3: Define data analysis and visualization function 
   - Activity 2.3: Implement read data and save output in the analsyis
-    - [ ] Task 2.3.1: Implement data downlaod function
-    - [ ] Task 2.3.2: Implement seq data processing function: perform quality control and trim and alignment for reads.
+    - [ ] Task 2.3.1: Implement data download function and readin function
+    - [ ] Task 2.3.2: Implement seq data processing function: perform quality control and trim and alignment for reads
           - [ ] generated fastq file and performed quality control, followed by trim and alignment for reads
-          - [ ] the first implemmentation would be with a mockup input and a simple statement reporting whether the data is successfully processed.
+          - [ ] the first implemmentation would be with a mockup input and a simple statement reporting whether the data is successfully processed, and at least one copy of real data should be loaded to test the function.
           - [ ] the preprocessed data would be further visualized to search for differentially expressed gene checking between samples
 
-    - [ ] Task 2.3.3: Implement pathway analysis: to found the possible pathways underlying the differenntially expressed genes.
-  - Activity 2.4: Test prototype 
+    - [ ] Task 2.3.3: Implement pathway analysis: to found the possible pathways underlying the differenntially expressed genes
+  - Activity 2.4: Define a function to save the generated result into a report and warp up the pipline as a snakemake workflow
+  - Activity 2.5: Test prototype 
 - Activity 3: Build prototype II
