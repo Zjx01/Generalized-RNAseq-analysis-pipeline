@@ -17,9 +17,11 @@ Output: RNA data analysis result including gene count, differentially expressed 
 Input data format for generalized RNA-seq pipeline:
 SRR accession list txt downloaded from NCBI or SRR numbers 
 
-bioconda sra-tools=2.10.9
+bioconda 
+sra-tools=2.10.9
 trim-galore=0.6.6  
-bbmap=38.87 hisat2=2.2.1  
+bbmap=38.87 
+hisat2=2.2.1  
 star=2.7.7a 
 bowtie2=2.4.2 
 kallisto=0.46.2 
