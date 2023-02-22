@@ -19,12 +19,21 @@ SRR accession list txt downloaded from NCBI or SRR numbers
 
 bioconda 
 sra-tools=2.10.9
+
 trim-galore=0.6.6  
+
 bbmap=38.87 
-hisat2=2.2.1  
+
+hisat2=2.2.1 
+
 star=2.7.7a 
+
 bowtie2=2.4.2 
+
 kallisto=0.46.2 
+
 salmon stringtie=2.1.4 
+
 orfipy=0.0.3 
+
 samtools=1.11
