@@ -25,6 +25,8 @@ Generalized RNA-seq pipeline
           - [ ] Gene network on enriched gene set
           - [ ] Heatmap on enriched gene set
           - [ ] etc
+ 
   - Activity 2.4: Define a function to save the generated result into a report and warp up the pipline as a snakemake workflow
-  - Activity 2.5: Test prototype 
+  - Activity 2.5: Add the Commandline interface and Graphic user interface
+  - Activity 2.6: Test prototype 
 - Activity 3: Build prototype II
