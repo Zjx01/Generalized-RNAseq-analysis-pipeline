@@ -16,4 +16,5 @@ Output: RNA data analysis result including gene count, differentially expressed 
 # 3.	Requirement
 Input data format for generalized RNA-seq pipeline:
 SRR accession list txt downloaded from NCBI or SRR numbers 
+
 For downstream analysis geneList containing fold change level with the respective gene ID as colname name for each gene is required.
