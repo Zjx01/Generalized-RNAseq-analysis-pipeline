@@ -49,12 +49,12 @@ def sra_to_fastq(sra_dir, rm_sra = False, paired = True):
     '''
 
     if not os.path.exists(sra_dir):
-        raise AttributeError('the input SRA path did not exist')
+        return 'the input SRA path did not exist'
 
     else:
         files = os.listdir(sra_dir)
         if len(files) == 0:
-            raise AttributeError('there is no sra file in the directory')
+            raise 'there is no sra file in the directory'
 
         else:
             #change to the directory 
@@ -91,7 +91,7 @@ def sra_to_fastq(sra_dir, rm_sra = False, paired = True):
                      
     return 'sra file to fastq file completed'
 
-#sra_to_fastq(sra_dir='/Users/jesi/Documents/BIOINFO_576/SRA_download',paired = False)
+#sra_to_fastq(sra_dir='/Users/jesi/Documents/BIOINFO_576/project_bioinfo576/SRA_download',paired = False)
 
     
 
