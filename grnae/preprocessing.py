@@ -64,7 +64,8 @@ def sra_to_fastq(sra_dir, rm_sra = False, paired = True):
             if paired:
                 for file in sra_files:
                     fastq_dump_cmd_paired = 'fastq-dump --split-3 --gzip ' + sra_dir + '/' + file + '/' + file + '.sra'
-                    #os.system(fastq_dump_cmd_paired)
+                    # this step take around 10 minutes for each input file, you may want to comment this step while running the unitest
+                    os.system(fastq_dump_cmd_paired)
 
                     #perform the fastqc html generation 
                     print("generated fastq file for " + file)
@@ -78,7 +79,7 @@ def sra_to_fastq(sra_dir, rm_sra = False, paired = True):
                 #if single end 
                 for file in sra_files:
                     fastq_dump_cmd_single = 'fastq-dump --gzip ' + sra_dir + '/' + file + '/' + file + '.sra'
-                    #os.system(fastq_dump_cmd_single)
+                    os.system(fastq_dump_cmd_single)
 
 
                     print("generated fastq file for " + file)
