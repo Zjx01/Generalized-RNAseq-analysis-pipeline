@@ -5,3 +5,5 @@ we aim to develop a general RNA-seq analysis workflow, starting from differentia
 
 
 The test case we use for find_DEG is provided in example_Data is the baseline CRS RNASeq raw count data from Tewari Munnesh Lab, it is expected that the package could return the differentially expressed genes between two groups while given the basic information. The test data used for the downstream analysis is from package DOSE using data(geneList), and it is expected that the package should generate plots like gene network plot to help visualize the interactome between target genes.
+
+How the user should use the package?
