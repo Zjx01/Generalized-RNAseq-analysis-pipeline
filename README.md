@@ -1,9 +1,7 @@
 # generalized RNAseq analysis pipeline (under development)
 
-we aim to develop a general RNA-seq analysis workflow from bottom to up, starting from data downloading to differential gene expressions and follow-up pathway analysis, providing a reference manual and easing the tedious procedures. A major prominent part of the project is that the pipeline provides various visualization methods in gene enrichment and pathway analysis, contributing to the comprehension of the underlying biological pathogenesis. 
+we aim to develop a general RNA-seq analysis workflow, starting from differential gene expressions detection to follow-up pathway analysis, providing a one-button pipieline and easing the tedious procedures. A major prominent part of the project is that the pipeline provides various visualization methods in gene enrichment and pathway analysis, contributing to the comprehension of the underlying biological pathogenesis. 
 
 
 
-The test case we use is for function sra_to_fastq is SRR5815077 and SRR5815077 (single-end sequenced RNA Seq data) you can download them with prefetch or mannually download them. The test data used for the downstream analysis is from package DOSE using data(geneList)
-
-Data downloaded comandline: prefetch SRR5815077 SRR5815077
+The test case we use for find_DEG is provided in example_Data is the baseline CRS RNASeq raw count data from Tewari Munnesh Lab, it is expected that the package could return the differentially expressed genes between two groups while given the basic information. The test data used for the downstream analysis is from package DOSE using data(geneList), and it is expected that the package should generate plots like gene network plot to help visualize the interactome between target genes.
