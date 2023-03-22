@@ -4,6 +4,7 @@ library(tidyverse)
 library(enrichplot)
 library(ggpubr)
 library(MASS)
+library('ggplot2')
 
 #' filter_genelist
 #'
@@ -36,10 +37,6 @@ show_barplot<-function(edo,showCategory_num,barp_name){
 
 
 #show_barplot(edo,showCategory_num = 20,"barplot")
-
-#NOTE: SHOULD THIS PART BE ADDED INTO THE FUNCTION AS WELL
-
-# mutate(edo, qscore = -log(p.adjust, base=10)) %>%  barplot(x="qscore")
 
 
 
