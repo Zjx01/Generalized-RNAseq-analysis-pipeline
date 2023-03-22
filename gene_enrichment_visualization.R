@@ -9,6 +9,7 @@ library(ggpubr)
 
 
 # interested genes with abolute value greater than assigned threshold and convert to large enrichResult
+#' @export
 filter_genelist<-function(geneList,standard_fc){
    if(length(geneList)==0){
      print("the gene List is empty, please put in the correct geneList")
@@ -23,9 +24,10 @@ filter_genelist<-function(geneList,standard_fc){
 
 
 edo <- filter_genelist(geneList, 2)
-# Bar plot
+#' Bar plot
+#' @export
 show_barplot<-function(edo,showCategory_num,barp_name){
-  barplot(edo, showCategory=showCategory_num) 
+  combined_plot = barplot(edo, showCategory=showCategory_num) 
   p = combined_plot + png(barp_name)
   print(p)
   dev.off()
@@ -41,7 +43,8 @@ show_barplot<-function(edo,showCategory_num,barp_name){
 
 
 
-# Dotplot 
+#' Dotplot 
+#' @export
 show_dotplot<-function(edo,showCategory_num,dotpf_name){
   edo2 <- gseDO(geneList) #edo2 is large gseaResult
   ORA_dotplot <- dotplot(edo, showCategory = showCategory_num) + ggtitle("dotplot for ORA")
@@ -58,7 +61,8 @@ show_dotplot<-function(edo,showCategory_num,dotpf_name){
 #show_dotplot(edo,showCategory_num=30,dotpf_name = 'combined_dotplot.png')
 
 
-# Gene-Concept Network Plot--------------------------------------------------------------------
+#' Gene-Concept Network Plot
+#' @export
 ## convert gene ID to Symbol,to notice the default OrgDb and keytype we use is 'org.Hs.eg.db'(human) and 
 #Entrez Gene ID and, it should be change when the input geneID changes
 develop_Gene_Network <- function(edo,geneList,GeneNetp_name,OrgDb = 'org.Hs.eg.db',keyType = 'ENTREZID',category_size = 'pvalue'){

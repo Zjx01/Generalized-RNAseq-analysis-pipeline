@@ -6,6 +6,26 @@ Author: Who wrote it
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
     Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+Imports: 
+    AnnotationDbi,
+    DESeq2,
+    DOSE,
+    dplyr,
+    enrichplot,
+    ggplot2,
+    ggpubr,
+    magrittr,
+    MASS,
+    Matrix,
+    org.Hs.eg.db,
+    pheatmap,
+    RColorBrewer
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Depends: 
+    tidyverse
