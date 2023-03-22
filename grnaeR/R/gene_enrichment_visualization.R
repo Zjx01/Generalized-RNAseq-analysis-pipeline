@@ -4,15 +4,14 @@ library(tidyverse)
 library(enrichplot)
 library(ggpubr)
 library(MASS)
-#genelist should be a list of gene foldchange level or with names of geneID
-
 
 #' filter_genelist
 #'
+#' @param genelist should be a list of gene foldchange level or with names of geneID
 #' @return edo object
 #' This function select interested genes with abolute value greater than assigned threshold and convert to large enrichResult
 #' @export
-filter_genelist<-function(geneList,standard_fc = 2){
+filter_genelist<-function(geneList,standard_fc){
   if(length(geneList)==0){
     print("the gene List is empty, please put in the correct geneList")
   }else{
@@ -36,7 +35,7 @@ show_barplot<-function(edo,showCategory_num,barp_name){
 }
 
 
-show_barplot(edo,showCategory_num = 20,"barplot")
+#show_barplot(edo,showCategory_num = 20,"barplot")
 
 #NOTE: SHOULD THIS PART BE ADDED INTO THE FUNCTION AS WELL
 
@@ -56,7 +55,7 @@ show_dotplot<-function(edo,showCategory_num,dotpf_name){
 
   #save the generated dotplots in pnf format
   p = combined_plot + png(dotpf_name)
-  print("successfully generated dotplot")
+  print('successfully generated dotplot')
 }
 
 #show_dotplot(edo,showCategory_num=30,dotpf_name = 'combined_dotplot.png')

@@ -13,3 +13,8 @@ export(normalize_dataset)
 export(select_DEG)
 export(show_barplot)
 export(show_dotplot)
+
+importFrom("grDevices", "colorRampPalette", "png")
+importFrom("graphics", "barplot")
+importFrom("stats", "dist")
+importFrom("utils", "read.delim", "read.table")
