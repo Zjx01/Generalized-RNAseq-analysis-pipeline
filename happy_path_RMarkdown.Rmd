@@ -1,6 +1,8 @@
 ---
 title: "happy path implementation"
-output: html_document
+output:
+  word_document: default
+  html_document: default
 date: "2023-03-25"
 ---
 
@@ -50,7 +52,7 @@ edo <- grnaeR::filter_genelist(geneList,standard_fc = 2)
 
 Then, we try to visualize the example data in the format of barplot, dotplot and gene_network 
 
-```{r}
+```{r barplot}
 barplot <- grnaeR::show_barplot(edo,showCategory_num = 20)
 barplot
 
