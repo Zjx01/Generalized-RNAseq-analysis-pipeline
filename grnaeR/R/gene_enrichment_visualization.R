@@ -25,7 +25,6 @@ filter_genelist<-function(geneList,standard_fc){
 }
 
 
-
 #' Bar plot
 #'
 #' Bar plot is the most widely used method to visualize enriched terms. It depicts the enrichment scores (e.g. p values) and gene count or ratio as bar height and color
@@ -33,15 +32,11 @@ filter_genelist<-function(geneList,standard_fc){
 #' @param showCategory_num specify the number of terms (most significant) or selected terms to display
 #' @export
 show_barplot<-function(edo,showCategory_num){
-  #combined_plot = barplot(edo, showCategory=showCategory_num)
-  #pdf(barp_name)
-  #dev.off()
-  barplot(edo, showCategory=showCategory_num)
-  print("bar plot generated")
+  bar_plot<-barplot(edo, showCategory=showCategory_num)
 }
 
 
-#show_barplot(edo,showCategory_num = 20,barp_name= "barplot.pdf")
+#show_barplot(edo,showCategory_num = 20)
 
 
 
@@ -57,10 +52,9 @@ show_dotplot<-function(edo,showCategory_num){
   ORA_dotplot <- dotplot(edo, showCategory = showCategory_num) + ggtitle("dotplot for ORA")
   GSEA_dotplot <- dotplot(edo2, showCategory = showCategory_num) + ggtitle("dotplot for GSEA")
   ggarrange(ORA_dotplot,GSEA_dotplot,nrow = 1,ncol = 2)
-  print('successfully generated dotplot')
 }
 
-#show_dotplot(edo,showCategory_num=30,dotpf_name = 'combined_dotplot.pdf')
+#show_dotplot(edo,showCategory_num=30)
 
 
 #' Gene-Concept Network Plot
@@ -70,19 +64,21 @@ show_dotplot<-function(edo,showCategory_num){
 #Entrez Gene ID and, it should be change when the input geneID changes
 #' @param edo edoobject
 #' @param  geneList genelist object
-#' @param category_size,keyType,OrgDb defaulted
+#' @param category_size
+#' @param keyType
+#' @param OrgDb defaulted
 #' @export
+
 develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = 'ENTREZID',category_size = 'pvalue'){
   edox <- setReadable(edo, OrgDb, keyType)
-  p1 <- cnetplot(edox, foldChange=geneList,max.overlaps = Inf)
+  p1 <- cnetplot(edox, color.params = list(foldChange = geneList),max.overlaps = Inf)
   ## categorySize can be scaled by 'pvalue' or 'geneNum'
-  p2 <- cnetplot(edox, categorySize= category_size, foldChange=geneList, max.overlaps = Inf)
-  p3 <- cnetplot(edox, foldChange=geneList, circular = TRUE, colorEdge = TRUE, max.overlaps = Inf)
-  cowplot::plot_grid(p1, p2, p3, ncol=3, labels=LETTERS[1:3], rel_widths=c(.8, .8, 1.2), max.overlaps = Inf)
-  print("successfully generated gene Network")
+  p2 <- cnetplot(edox, categorySize= category_size, color.params = list(foldChange = geneList), max.overlaps = Inf)
+  p3 <- cnetplot(edox, color.params = list(foldChange = geneList), circular = TRUE, max.overlaps = Inf)
+  cowplot::plot_grid(p1, p2, p3, ncol=3, labels=LETTERS[1:3], rel_widths=c(.8, .8, 1.2))
 }
 
 
-
+#develop_Gene_Network(edo,geneList)
 
 

@@ -30,35 +30,38 @@ test_that('check the generation of enrichResult',{
 edo <- filter_genelist(geneList,2)
 
 test_that('check the generation of barplot',{
-  expect_identical(show_barplot(edo,showCategory_num = 20), "bar plot generated")
+  expect_identical(typeof(show_barplot(edo,showCategory_num = 20)), "list")
 })
 
 #Is it ok that we get several warning cases but the code itself works
 test_that('check the generation of dotplot',{
-  expect_equal(show_dotplot(edo,showCategory_num=30),"successfully generated dotplot")
+  expect_equal(typeof(show_dotplot(edo,showCategory_num=30)),"list")
 })
 
 
 test_that('check the generation of gene network',{
-  expect_equal(develop_Gene_Network(edo,geneList),"successfully generated gene Network")
+  expect_equal(typeof(develop_Gene_Network(edo,geneList)),"list")
+})
+
+
+
+dir = '/Users/jesi/Documents/Generalized-RNAseq-analysis-pipeline'
+file = '/Users/jesi/Documents/CRS_34v0.txt'
+readcount = load_data(dir,file)
+
+test_that('check calculate_RPKM',{
+  expect_equal(calculate_RPKM(readcount),"the exonlength should be contained in provided file to calculate RPKM")
 })
 
 
 #test case
 test_that('integration test for find_DEG',{
-  dir = '/Users/jesi/Documents'
-  file = '/Users/jesi/Documents/CRS_34v0.txt'
-  readcount = load_data(dir,file)
-  check_totalcov_quality(readcount)
-  check_genecovered_quality(readcount)
   condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
   type_vector = c(colnames(readcount))
   dds = load_data_for_DESeq2(file,condition_vector,type_vector)
-  normalized_dds = normalize_dataset(dds)
-  check_sample_distance(normalized_dds)
-  select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padj=0.05)
-
-  expect_equal(calculate_RPKM(readcount),"the exonlength should be contained in provided file to calculate RPKM")
   expect_equal(class(dds)[1],"DESeqDataSet")
+  normalized_dds = normalize_dataset(dds)
+  select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padj=0.05)
+  expect_equal(typeof(select_DEGs),"list")
 })
 

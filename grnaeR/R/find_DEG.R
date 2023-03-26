@@ -130,13 +130,14 @@ check_sample_distance<-function(normalized_dds){
   plotPCA(normalized_dds)
 }
 
+
 #' differential gene expression and return their Entriz ID/SYMBOL for further gene enrichment analysis
 #'
 #' @param filter_thresh the threshold to remove genes with expression level lower than this
 #' @param log2_fc log2foldchange to filter the significant genes
-#' @param padj adjusted p value to filter the significant genes
+#' @param padjust adjusted p value to filter the significant genes
 #' @export
-select_DEG<- function(dds,filter_thresh = 0,log2_fc = 0.58, padj=0.05){
+select_DEG<- function(dds,filter_thresh = 0,log2_fc = 0.58, padjust=0.05){
   pre_count_num = dim(counts(dds))
   keep = rowSums(counts(dds)) > filter_thresh
   dds = dds[keep,]
@@ -147,11 +148,10 @@ select_DEG<- function(dds,filter_thresh = 0,log2_fc = 0.58, padj=0.05){
   dds = DESeq(dds)
   res = results(dds)
 
-  res05 = results(dds,alpha = padj , lfcThreshold = log2_fc)
-  summary(res05)
+  target_res = results(dds,alpha = padjust , lfcThreshold = log2_fc)
+  summary(target_res)
 
-  target_res = results(dds,alpha = padj, lfcThreshold = log2_fc)
-  target_res <- subset(target_res,padj <= padj, abs(log2FoldChange)>= log2_fc)
+  target_res <- subset(target_res,padj <= padjust & abs(log2FoldChange) >= log2_fc)
   selected_Id = mapIds(org.Hs.eg.db,
                        keys = row.names(target_res),
                        column = "SYMBOL",
