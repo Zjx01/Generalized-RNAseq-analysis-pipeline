@@ -8,7 +8,7 @@ The test case we use for find_DEG is provided in example_Data is the baseline CR
 
 
 Detailed Instruction on the project implementation can be viewed in the happy_path_implementation markdown.
-Linkage: https://github.com/Zjx01/Generalized-RNAseq-analysis-pipeline/blob/main/happy_path_RMarkdown.html
+Linkage: https://github.com/Zjx01/Generalized-RNAseq-analysis-pipeline/blob/main/happy_path_RMarkdown.pdf
 
 
 
