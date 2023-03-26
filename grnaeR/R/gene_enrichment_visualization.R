@@ -80,5 +80,27 @@ develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = '
 
 
 #develop_Gene_Network(edo,geneList)
+# Function to plot edo output as a network
+#' @param edo large enrichResult
+#' @param cex_category The cex_category parameter can be used to resize nodes
+#' @export
+
+enrichmap <- function(edo,cex_category=1.1){
+  
+  # Ignore/omit warnings that objects will overlap and maximize size to avoid overlap
+  options(ggrepel.max.overlaps = Inf)
+  
+  # Define enrichment result object
+  edo <- pairwise_termsim(edo)
+  
+  # Default emap plot 1
+  p1 <- emapplot(edo)
+  
+  # Change node size using cex.params
+  p2 <- emapplot(edo, cex.params = list(category_node = cex_category))
+  
+  # Return a list as cowplot to combine figures
+  cowplot::plot_grid(p1, p2, ncol=2, labels=LETTERS[1:2])
+}
 
 
