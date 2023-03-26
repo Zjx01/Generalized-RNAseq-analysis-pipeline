@@ -136,7 +136,7 @@ check_sample_distance<-function(normalized_dds){
 #' @param log2_fc log2foldchange to filter the significant genes
 #' @param padj adjusted p value to filter the significant genes
 #' @export
-select_DEG<- function(dds,filter_thresh = 0,log2_fc = 2, padj=0.05){
+select_DEG<- function(dds,filter_thresh = 0,log2_fc = 0.58, padj=0.05){
   pre_count_num = dim(counts(dds))
   keep = rowSums(counts(dds)) > filter_thresh
   dds = dds[keep,]
@@ -150,17 +150,20 @@ select_DEG<- function(dds,filter_thresh = 0,log2_fc = 2, padj=0.05){
   res05 = results(dds,alpha = padj , lfcThreshold = log2_fc)
   summary(res05)
 
-  selected_res<-subset(res05,padj<=padj,abs(log2FoldChange)>=log2_fc)
+  target_res = results(dds,alpha = padj, lfcThreshold = log2_fc)
+  target_res <- subset(target_res,padj <= padj, abs(log2FoldChange)>= log2_fc)
+  selected_Id = mapIds(org.Hs.eg.db,
+                       keys = row.names(target_res),
+                       column = "SYMBOL",
+                       keytype = "ENSEMBL",
+                       multiVals = "first")
 
-  selected_res$entrez <- mapIds(org.Hs.eg.db,
-                                keys = row.names(selected_res),
-                                column = "ENTREZID",
-                                keytype = "ENSEMBL",
-                                multiVals = "first")
 
-  selected_res$entrez <- mapIds(org.Hs.eg.db,
-                                keys = row.names(selected_res),
-                                column = "SYMBOL",
-                                keytype = "ENSEMBL",
-                                multiVals = "first")
+  DEG = data.frame('name'=c(selected_Id))
+  DEG = cbind(DEG,target_res)
+
+  #write_csv(DEG,'DEG.csv')
+  return(DEG)
 }
+
+

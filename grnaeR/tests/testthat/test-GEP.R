@@ -30,17 +30,17 @@ test_that('check the generation of enrichResult',{
 edo <- filter_genelist(geneList,2)
 
 test_that('check the generation of barplot',{
-  expect_identical(show_barplot(edo,showCategory_num = 20,"barplot.png"), "bar plot generated")
+  expect_identical(show_barplot(edo,showCategory_num = 20), "bar plot generated")
 })
 
 #Is it ok that we get several warning cases but the code itself works
 test_that('check the generation of dotplot',{
-  expect_equal(show_dotplot(edo,showCategory_num=30,dotpf_name = 'combined_dotplot.png'),"successfully generated dotplot")
+  expect_equal(show_dotplot(edo,showCategory_num=30),"successfully generated dotplot")
 })
 
 
 test_that('check the generation of gene network',{
-  expect_equal(develop_Gene_Network(edo,geneList,GeneNetp_name = "Gene_Network.png"),"successfully generated gene Network")
+  expect_equal(develop_Gene_Network(edo,geneList),"successfully generated gene Network")
 })
 
 
