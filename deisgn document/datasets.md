@@ -1,11 +1,11 @@
-Brief description of dataset used for the project
+# Brief description of dataset used for the project
 
 1. Input data format for generalized RNA-seq pipeline should be RNAseq raw count data to find the differential expressed genes.
 2. For downstream analysis geneList object is required for gene enrichment visualization.
 
 the test case we use is for function find_DEG is included in the example data . The test data used for the downstream analysis is from package DOSE using data(geneList) 
 
-# Real dataset for answering a biological question using the tool
+## Real dataset for answering a biological question using the tool
 
 * Question *:
 Human embryonic stem cells (hESCs) typically exhibit "primed" pluripotency, analogous to stem cells derived from the mouse post-implantation epiblast. Since primed hESC have limited differentiation capacity, scientists have tried various method trying to revert "primed" hESCs to a more "naive" state which have higher pluripotency capacity (could have more clinical application potentials, and can also help us understand the early embryo development). By investigating the differentially expressed genes and their involved pathways, we hope to understand the mechanism undelying the differentiation capacity difference between naive hESCs and primed hESCs.
