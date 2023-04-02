@@ -19,7 +19,7 @@ Here, we will use the 8 RNAseq dataset from *William Pastor et al., 2016, Cell S
 
 
 Each readcount txt file for every sample is roughly 90~100 kb, containing the gene names and their respect expression level. 
-![readcount_format]('../readcount_screenshot.jpg')
+![readcount_format]('/Users/jesi/Documents/Generalized-RNAseq-analysis-pipeline/readcount_screenshot.jpg')
 
 The reason we select the dataset is that the data is clear formulated with not much extra preprocessing steps to implement and can be used for studying differentially expressed genes, shows a clear way of how to run the pipeline.
 
