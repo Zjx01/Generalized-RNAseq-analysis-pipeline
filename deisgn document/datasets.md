@@ -8,6 +8,7 @@ the test case we use is for function find_DEG is included in the example data . 
 ## Real dataset for answering a biological question using the tool
 
 * Question :
+
 Human embryonic stem cells (hESCs) typically exhibit "primed" pluripotency, analogous to stem cells derived from the mouse post-implantation epiblast. Since primed hESC have limited differentiation capacity, scientists have tried various method trying to revert "primed" hESCs to a more "naive" state which have higher pluripotency capacity (could have more clinical application potentials, and can also help us understand the early embryo development). By investigating the differentially expressed genes and their involved pathways, we hope to understand the mechanism undelying the differentiation capacity difference between naive hESCs and primed hESCs.
 
 
