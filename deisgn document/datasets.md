@@ -13,13 +13,23 @@ Human embryonic stem cells (hESCs) typically exhibit "primed" pluripotency, anal
 
 Here, we will use the 8 RNAseq dataset from *William Pastor et al., 2016, Cell Stem Cell*, with 4 replicates of naive hESCs and 4 replicates of primed hESCs to study the biological problem.
 
-| Accession  | ID  | Replicate | CellType    ||------------|-----|-----------|-------------||GSM2041708  | 1   |  rep1     | Primed_hESC | |GSM2041709  | 2   |  rep2     | Primed_hESC | |GSM2041710  | 3   |  rep3     | Primed_hESC | |GSM2041711  | 4   |  rep4     | Primed_hESC | |GSM2041712  | 5   |  rep1     | Naive_hESC  | |GSM2041713  | 6   |  rep2     | Naive_hESC  | |GSM2041714  | 7   |  rep3     | Naive_hESC  | |GSM2041715  | 8   |  rep4     | Naive_hESC  | 
+
+| Accession  | ID  | Replicate | CellType    |
+|------------|-----|-----------|-------------|
+|GSM2041708  | 1   |  rep1     | Primed_hESC | 
+|GSM2041709  | 2   |  rep2     | Primed_hESC | 
+|GSM2041710  | 3   |  rep3     | Primed_hESC | 
+|GSM2041711  | 4   |  rep4     | Primed_hESC | 
+|GSM2041712  | 5   |  rep1     | Naive_hESC  | 
+|GSM2041713  | 6   |  rep2     | Naive_hESC  | 
+|GSM2041714  | 7   |  rep3     | Naive_hESC  | 
+|GSM2041715  | 8   |  rep4     | Naive_hESC  | 
 
 * dataset Linkage *:   https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE76970
 
 
 Each readcount txt file for every sample is roughly 90~100 kb, containing the gene names and their respect expression level. 
-![readcount_image]('readcount_screenshot.jpg')
+![Screenshot](readcount_screenshot.jpg)
 
 The reason we select the dataset is that the data is clear formulated with not much extra preprocessing steps to implement and can be used for studying differentially expressed genes, shows a clear way of how to run the pipeline.
 
