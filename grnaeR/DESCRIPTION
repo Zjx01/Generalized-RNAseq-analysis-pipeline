@@ -22,7 +22,8 @@ Imports:
     Matrix,
     org.Hs.eg.db,
     pheatmap,
-    RColorBrewer
+    RColorBrewer,
+    cowplot
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,
