@@ -1,0 +1,143 @@
+---
+title: "grnaeR"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{grnaeR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(grnaeR)
+```
+
+
+# introduction to grnaeR
+RNA-seq analysis workflow, starting from differential gene expressions detection to follow-up pathway analysis, providing a one-button pipieline and easing the tedious procedures. A major prominent part of the project is that the pipeline provides various visualization methods in gene enrichment and pathway analysis, contributing to the comprehension of the underlying biological pathogenesis.
+
+
+# goal of the turotial
+This tutorial aims to show users with the simple usage of basic functionality of the grnaeR software,using the example data provided.
+
+*example Data used*
+We used two example data in this case, CRS_34v0.txt in the exampleData folder and the geneList data from the DOSE library. (Make sure you have installed the package if you want to do as the guidance)
+
+<br> CRS_34v0.txt </br>: the txt file contains the baseline RNAseq raw count data for 9 patients received CART therapy and presented with the MAX_CRS_score rated grade 3 or 4 and those who has no CRS symptom noticed.
+The data is owned by Tewari Muneesh LAB.
+
+<br> geneList </br>: geneList data contains the entrez id of genes as names and their respective expression level. 
+
+# How to install the grnaeR package
+```{r installation and load the exampleData}
+# if (!require("BiocManager", quietly = TRUE))
+#     install.packages("BiocManager")
+#     BiocManager::install("DOSE")
+```
+
+
+
+```{r installation of grnaeR}
+# system.file('extdata', package = "grnaeR")|>list.files()
+# install.packages('grnaeR_0.1.0.tar.gz',repos = NULL)
+```
+
+
+```{r load the example data}
+library(DOSE)
+data(geneList)
+# have a view of the data
+head(geneList)
+```
+
+```{r}
+library('enrichplot')
+library('ggpubr')
+library('org.Hs.eg.db')
+library('DESeq2')
+library('RColorBrewer')
+library("pheatmap")
+```
+
+# Implementation of the gene_enrichment_visualization module
+Here, we call the filter_genelist function to select interested genes with abolute value greater than assigned threshold and convert to large enrichResult
+```{r filter_genelist}
+edo <- grnaeR::filter_genelist(geneList,standard_fc = 2)
+```
+
+Then, we try to visualize the example data in the format of barplot, dotplot and gene_network 
+
+```{r barplot}
+barplot <- show_barplot(edo,showCategory_num = 20)
+barplot
+```
+
+
+```{r dotplot}
+dotplot<-show_dotplot(edo,showCategory_num=30)
+dotplot
+```
+
+```{r}
+gene_network <- develop_Gene_Network(edo,geneList)
+# gene_network
+```
+
+
+## STEP2: Happy PATH Find_DEG
+load the example data CRS_34v0 
+```{r loaddata}
+# working directory
+dir = getwd()
+# file: The path of rnaseq raw count
+file = '../../exampleData/CRS_34v0.txt'
+readcount = load_data(dir,file)
+```
+
+Perform quality control: check the total coverage 
+```{r totalcov_check}
+total.cov =  check_totalcov_quality(readcount)
+```
+
+quality control: check the number of genes being covered
+```{r genecov_check}
+gene.cov = check_genecovered_quality(readcount)
+```
+
+```{r checkRPKM}
+calculate_RPKM(readcount)
+```
+
+
+Next, we need to specifies configure and types used for the design of our  data. Since the example data contains 4 patient samples develop CRS and 5 samples without CRS, we set the condition vector to describe the CRS condition, while the type_vector represents the individual sample.
+```{r}
+type_vector = c(colnames(readcount))
+condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
+```
+
+load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
+```{r}
+dds = grnaeR::load_data_for_DESeq2(file,condition_vector,type_vector)
+normalized_dds = normalize_dataset(dds)
+check_sample_distance(normalized_dds)
+```
+
+obtain the dataframe of the differentially expressed genes
+```{r}
+# select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padjust = 0.05)
+# select_DEGs
+```
+
+Through the pipeline, we are able to select 34 genes differentially expressed in CRS_3_4 and nonCRS patients at the baseline level.
+
+
+
+
+
+
+
