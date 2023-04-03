@@ -93,38 +93,38 @@ gene_network <- develop_Gene_Network(edo,geneList)
 load the example data CRS_34v0 
 ```{r loaddata}
 # working directory
-dir = getwd()
+# dir = getwd()
 # file: The path of rnaseq raw count
-file = '../../exampleData/CRS_34v0.txt'
-readcount = load_data(dir,file)
+# file = '../../exampleData/CRS_34v0.txt'
+# readcount = load_data(dir,file)
 ```
 
 Perform quality control: check the total coverage 
 ```{r totalcov_check}
-total.cov =  check_totalcov_quality(readcount)
+# total.cov =  check_totalcov_quality(readcount)
 ```
 
 quality control: check the number of genes being covered
 ```{r genecov_check}
-gene.cov = check_genecovered_quality(readcount)
+# gene.cov = check_genecovered_quality(readcount)
 ```
 
 ```{r checkRPKM}
-calculate_RPKM(readcount)
+# calculate_RPKM(readcount)
 ```
 
 
 Next, we need to specifies configure and types used for the design of our  data. Since the example data contains 4 patient samples develop CRS and 5 samples without CRS, we set the condition vector to describe the CRS condition, while the type_vector represents the individual sample.
 ```{r}
-type_vector = c(colnames(readcount))
-condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
+# type_vector = c(colnames(readcount))
+# condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
 ```
 
 load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
 ```{r}
-dds = grnaeR::load_data_for_DESeq2(file,condition_vector,type_vector)
-normalized_dds = normalize_dataset(dds)
-check_sample_distance(normalized_dds)
+#dds = grnaeR::load_data_for_DESeq2(file,condition_vector,type_vector)
+#normalized_dds = normalize_dataset(dds)
+#check_sample_distance(normalized_dds)
 ```
 
 obtain the dataframe of the differentially expressed genes
