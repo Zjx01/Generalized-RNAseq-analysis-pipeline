@@ -78,13 +78,20 @@ calculate_RPKM = function(readcount){
 
 #' load data into DESeq2 object
 #'
-#' @param file the file you want to use
+#' @param readcount_ob the file you want to use or the readcount dataframe
 #' @param condition_vector the condition of the samples
 #' @param type_vector the type/design of samples
 #' @export
-load_data_for_DESeq2 <- function(file,condition_vector,type_vector){
 
-  readcount = read.table(file,header = T,row.names = 1)
+
+load_data_for_DESeq2 <- function(readcount_ob,condition_vector,type_vector){
+
+  if(typeof(readcount_ob) == "character"){
+    readcount = read.table(readcount_ob,header = T,row.names = 1)
+  }else{
+    readcount = readcount_ob
+  }
+
   configure = data.frame(condition = factor(condition_vector),type = type_vector)
 
   if(check_exonlength(readcount) == TRUE){
@@ -129,7 +136,6 @@ check_sample_distance<-function(normalized_dds){
   #plot PCA as well
   plotPCA(normalized_dds)
 }
-
 
 #' differential gene expression and return their Entriz ID/SYMBOL for further gene enrichment analysis
 #'

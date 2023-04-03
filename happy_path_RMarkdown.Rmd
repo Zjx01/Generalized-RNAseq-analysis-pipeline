@@ -47,7 +47,7 @@ The package conflict still exist, effort should be paid to solve the problem
 
 Here, we call the filter_genelist function to select interested genes with abolute value greater than assigned threshold and convert to large enrichResult
 ```{r filter_genelist}
-edo <- grnaeR::filter_genelist(geneList,standard_fc = 2)
+edo <- filter_genelist(geneList,standard_fc = 2)
 ```
 
 Then, we try to visualize the example data in the format of barplot, dotplot and gene_network 
