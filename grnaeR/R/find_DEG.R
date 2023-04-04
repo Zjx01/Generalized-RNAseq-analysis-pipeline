@@ -6,6 +6,8 @@ library("RColorBrewer")
 library('DESeq2')
 library('AnnotationDbi')
 library('org.Hs.eg.db')
+library('cowplot')
+
 
 #' Load the data
 #' @param dir The working directory

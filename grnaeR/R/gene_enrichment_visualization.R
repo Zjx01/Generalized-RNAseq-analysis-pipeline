@@ -79,12 +79,12 @@ show_dotplot<-function(edo,showCategory_num){
 
 develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = 'ENTREZID',category_size = 'pvalue'){
   #map geneID to gene Symbol
+  options(ggrepel.max.overlaps = Inf)
   edox <- setReadable(edo, OrgDb, keyType)
   p1 <- cnetplot(edox, color.params = list(foldChange = geneList),max.overlaps = Inf)
   ## categorySize can be scaled by 'pvalue' or 'geneNum'
   p2 <- cnetplot(edox, categorySize= category_size, color.params = list(foldChange = geneList), max.overlaps = Inf)
-  p3 <- cnetplot(edox, color.params = list(foldChange = geneList), circular = TRUE, max.overlaps = Inf)
-  cowplot::plot_grid(p1, p2, p3, ncol=3, labels=LETTERS[1:3], rel_widths=c(.8, .8, 1.2))
+  cowplot::plot_grid(p1, p2, ncol=2, labels=LETTERS[1:2])
 }
 
 
