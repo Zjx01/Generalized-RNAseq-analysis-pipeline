@@ -49,11 +49,11 @@ For users to install the packages, they can download the code and run `devtools:
 library(DOSE)
 data(geneList)
 library(DESeq2)
-library('ggplot2')
+library("ggplot2")
 library("pheatmap")
 library("RColorBrewer")
-library('AnnotationDbi')
-library('org.Hs.eg.db')
+library("AnnotationDbi")
+library("org.Hs.eg.db")
 ```
 
 
@@ -62,27 +62,27 @@ Here, we call the filter_genelist function to select interested genes with abolu
 
 
 ```{r filter_genelist}
-edo <- filter_genelist(geneList,standard_fc = 2)
+edo <- filter_genelist(geneList, standard_fc = 2)
 ```
 
 
 
 Then, we try to visualize the example data in the format of barplot, dotplot and gene_network to ctach a glimpse of the involved pathways of geneList.
 ```{r barplot}
-barplot <- show_barplot(edo,showCategory_num = 20)
+barplot <- show_barplot(edo, showCategory_num = 20)
 barplot
 ```
 
 
 ```{r fig.width=14, fig.height=12}
-dotplot<-show_dotplot(edo,showCategory_num=30)
+dotplot <- show_dotplot(edo, showCategory_num = 30)
 dotplot
 ```
 
 
 we try to see the potential genes and their involvement in the pathological pathways via gene network for geneList. 
 ```{r}
-gene_network <- develop_Gene_Network(edo,geneList) + theme(legend.position="none")
+gene_network <- develop_Gene_Network(edo, geneList) + theme(legend.position = "none")
 gene_network
 ```
 
@@ -90,20 +90,20 @@ gene_network
 
 load the example data CRS_34v0 
 ```{r loaddata}
-file = paste(system.file('extdata', package = "grnaeR"),system.file('extdata', package = "grnaeR")|>list.files(),sep = '/')
+file <- paste(system.file("extdata", package = "grnaeR"), system.file("extdata", package = "grnaeR") |> list.files(), sep = "/")
 # file: The path of rnaseq raw count
-readcount = load_data(file)
+readcount <- load_data(file)
 ```
 
 Perform quality control: check the total coverage 
 ```{r totalcov_check}
-total.cov =  check_totalcov_quality(readcount)
+total.cov <- check_totalcov_quality(readcount)
 ```
 
 
 quality control: check the number of genes being covered
 ```{r genecov_check}
-gene.cov = check_genecovered_quality(readcount)
+gene.cov <- check_genecovered_quality(readcount)
 ```
 
 ```{r checkRPKM}
@@ -114,20 +114,20 @@ calculate_RPKM(readcount)
 Next, we need to specifies configure and types used for the design of our  data. Since the example data contains 4 patient samples develop CRS and 5 samples without CRS, we set the condition vector to describe the CRS condition, while the type_vector represents the individual sample.
 ```{r}
 type_vector <- c(colnames(readcount))
-condition_vector <- c(c(rep('CRS',4)),c(rep('noCRS',5)))
+condition_vector <- c(c(rep("CRS", 4)), c(rep("noCRS", 5)))
 ```
 
 load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
 ```{r}
-dds = load_data_for_DESeq2(file, condition_vector, type_vector)
-normalized_dds = normalize_dataset(dds)
+dds <- load_data_for_DESeq2(file, condition_vector, type_vector)
+normalized_dds <- normalize_dataset(dds)
 check_sample_distance(normalized_dds)
 ```
 
 
 obtain the dataframe of the differentially expressed genes
 ```{r}
-DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padjust = 0.05)
+DEGs <- select_DEG(dds = dds, filter_thresh = 0, log2_fc = log(1.5, 2), padjust = 0.05)
 DEGs
 ```
 
