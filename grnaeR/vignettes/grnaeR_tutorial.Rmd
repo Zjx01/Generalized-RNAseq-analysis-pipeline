@@ -105,7 +105,7 @@ quality control: check the number of genes being covered
 ```{r genecov_check}
 gene.cov = check_genecovered_quality(readcount)
 ```
-
+if exon length information is contained in the file, calculated the RPKM value for gens to better understand gene expression level.
 ```{r checkRPKM}
 calculate_RPKM(readcount)
 ```
@@ -117,7 +117,7 @@ type_vector <- c(colnames(readcount))
 condition_vector <- c(c(rep('CRS',4)),c(rep('noCRS',5)))
 ```
 
-load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
+load the data into DESeq2 object and normalized the dataset, further check the similarity between samples with heatmap and PCA plot.
 ```{r}
 dds = load_data_for_DESeq2(file, condition_vector, type_vector)
 normalized_dds = normalize_dataset(dds)
