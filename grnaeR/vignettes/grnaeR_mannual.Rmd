@@ -46,10 +46,6 @@ The data is owned by Tewari Muneesh LAB.
 ```
 
 
-```{r }
-system.file(package = "grnaeR")|>list.files()
-```
-
 
 ```{r load the example data}
 library(DOSE)
@@ -81,24 +77,22 @@ barplot
 ```
 
 
-```{r dotplot}
+```{r fig.width=14, fig.height=12}
 dotplot<-show_dotplot(edo,showCategory_num=30)
 dotplot
 ```
 
 ```{r}
-gene_network <- develop_Gene_Network(edo,geneList)
+gene_network <- develop_Gene_Network(edo,geneList) + theme(legend.position="none")
 ```
 
 
 ## STEP2: Happy PATH Find_DEG
 load the example data CRS_34v0 
 ```{r loaddata}
-# working directory
-dir = getwd()
 file = paste(system.file('extdata', package = "grnaeR"),system.file('extdata', package = "grnaeR")|>list.files(),sep = '/')
 # file: The path of rnaseq raw count
-readcount = load_data(dir,file)
+readcount = load_data(file)
 ```
 
 Perform quality control: check the total coverage 
@@ -131,8 +125,8 @@ check_sample_distance(normalized_dds)
 
 obtain the dataframe of the differentially expressed genes
 ```{r}
-select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padjust = 0.05)
-select_DEGs
+DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padjust = 0.05)
+DEGs
 ```
 
 Through the pipeline, we are able to select 34 genes differentially expressed in CRS_3_4 and nonCRS patients at the baseline level.

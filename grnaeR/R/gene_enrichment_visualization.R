@@ -88,7 +88,6 @@ develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = '
 }
 
 
-#develop_Gene_Network(edo,geneList)
 # Function to plot edo output as a network
 #' @param edo large enrichResult
 #' @param cex_category The cex_category parameter can be used to resize nodes
