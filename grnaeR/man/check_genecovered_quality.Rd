@@ -6,6 +6,9 @@
 \usage{
 check_genecovered_quality(readcount)
 }
+\arguments{
+\item{readcount}{input: data frame/list object}
+}
 \description{
 data quality control: check the number of genes being covered
 }

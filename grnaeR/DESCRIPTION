@@ -2,10 +2,10 @@ Package: grnaeR
 Type: Package
 Title: What the Package Does (Title Case)
 Version: 0.1.0
-Author: Who wrote it
+Author: Jingxian Zhao
 Maintainer: The package maintainer <yourself@somewhere.net>
 Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+    The package is used for the downsream analysis of RNA-seq raw data including differentially expressed gene identification and .
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -23,7 +23,9 @@ Imports:
     org.Hs.eg.db,
     pheatmap,
     RColorBrewer,
-    cowplot
+    cowplot,
+    BiocGenerics,
+    SummarizedExperiment
 RoxygenNote: 7.2.3
 Suggests: 
     knitr,

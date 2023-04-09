@@ -4,8 +4,13 @@
 \alias{show_barplot}
 \title{Bar plot}
 \usage{
-show_barplot(edo, showCategory_num, barp_name)
+show_barplot(edo, showCategory_num)
+}
+\arguments{
+\item{edo}{large enrichResult}
+
+\item{showCategory_num}{specify the number of terms (most significant) or selected terms to display}
 }
 \description{
-generate the barplot of gene bar plot
+Bar plot is the most widely used method to visualize enriched terms. It depicts the enrichment scores (e.g. p values) and gene count or ratio as bar height and color
 }

@@ -7,6 +7,8 @@ library('DESeq2')
 library('AnnotationDbi')
 library('org.Hs.eg.db')
 library('cowplot')
+library('BiocGenerics')
+library("SummarizedExperiment")
 
 
 #' Load the data
@@ -152,7 +154,7 @@ check_sample_distance<-function(normalized_dds){
 #' @param filter_thresh the threshold to remove genes with expression level lower than this
 #' @param log2_fc log2foldchange to filter the significant genes
 #' @param padjust adjusted p value to filter the significant genes
-#' @importFrom DESeq DESeq2
+#' @importFrom DESeq2 DESeq
 #' @export
 select_DEG <- function(dds,filter_thresh = 0,log2_fc = 0.58, padjust=0.05){
   pre_count_num = dim(counts(dds))

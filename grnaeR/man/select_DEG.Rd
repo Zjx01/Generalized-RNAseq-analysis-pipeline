@@ -2,10 +2,19 @@
 % Please edit documentation in R/find_DEG.R
 \name{select_DEG}
 \alias{select_DEG}
-\title{differential gene expression and return their Entriz ID/SYMBOL for further gene enrichment analysis}
+\title{select differential gene expression}
 \usage{
-select_DEG(dds, filter_thresh = 0, log2_fc = 2, padj = 0.05)
+select_DEG(dds, filter_thresh = 0, log2_fc = 0.58, padjust = 0.05)
+}
+\arguments{
+\item{dds}{the dds object}
+
+\item{filter_thresh}{the threshold to remove genes with expression level lower than this}
+
+\item{log2_fc}{log2foldchange to filter the significant genes}
+
+\item{padjust}{adjusted p value to filter the significant genes}
 }
 \description{
-differential gene expression and return their Entriz ID/SYMBOL for further gene enrichment analysis
+select differential gene expression
 }

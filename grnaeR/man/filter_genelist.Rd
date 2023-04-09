@@ -6,10 +6,14 @@
 \usage{
 filter_genelist(geneList, standard_fc)
 }
+\arguments{
+\item{geneList}{should be a list of gene foldchange level or with names of geneID}
+
+\item{standard_fc}{the foldchange threshold for filtering}
+}
 \value{
 edo object
-This function select interested genes with abolute value greater than assigned threshold and convert to large enrichResult
 }
 \description{
-filter_genelist
+This function select interested genes with abolute value greater than assigned threshold and convert to large enrichResult. l
 }

@@ -1,7 +1,7 @@
 library(magrittr)
 library(dplyr)
 library(tidyverse)
-library(enrichplot)
+require(enrichplot)
 library(ggpubr)
 library(MASS)
 library('ggplot2')
@@ -9,10 +9,10 @@ library('ggplot2')
 #' filter_genelist
 #'
 #' This function select interested genes with abolute value greater than assigned threshold and convert to large enrichResult. l
-#' @param genelist should be a list of gene foldchange level or with names of geneID
+#' @param geneList should be a list of gene foldchange level or with names of geneID
 #' @param standard_fc the foldchange threshold for filtering
 #' @return edo object
-#' @importFrom enrichplot enrichDGN
+#' @importFrom DOSE enrichDGN
 #' @export
 filter_genelist<-function(geneList,standard_fc){
   if(length(geneList)==0){
@@ -70,8 +70,8 @@ show_dotplot<-function(edo,showCategory_num){
 #Entrez Gene ID and, it should be change when the input geneID changes
 #' @param edo edoobject
 #' @param  geneList genelist object
-#' @param category_size
-#' @param keyType
+#' @param category_size category_size
+#' @param keyType the key you have
 #' @param OrgDb defaulted
 #' @importFrom DOSE setReadable
 #' @importFrom enrichplot cnetplot
@@ -86,7 +86,8 @@ develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = '
 }
 
 
-# Function to plot edo output as a network
+#' Function to plot edo output as a network
+#
 #' @param edo large enrichResult
 #' @param cex_category The cex_category parameter can be used to resize nodes
 #' @importFrom enrichplot pairwise_termsim

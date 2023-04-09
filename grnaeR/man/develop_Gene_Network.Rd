@@ -2,13 +2,11 @@
 % Please edit documentation in R/gene_enrichment_visualization.R
 \name{develop_Gene_Network}
 \alias{develop_Gene_Network}
-\title{Gene-Concept Network Plot
-convert gene ID to Symbol,to notice the default OrgDb and keytype we use is 'org.Hs.eg.db'(human) and}
+\title{Gene-Concept Network Plot}
 \usage{
 develop_Gene_Network(
   edo,
   geneList,
-  GeneNetp_name,
   OrgDb = "org.Hs.eg.db",
   keyType = "ENTREZID",
   category_size = "pvalue"
@@ -19,11 +17,13 @@ develop_Gene_Network(
 
 \item{geneList}{genelist object}
 
-\item{GeneNetp_name}{image_name}
+\item{OrgDb}{defaulted}
 
-\item{category_size, keyType, OrgDb}{defaulted}
+\item{keyType}{the key you have}
+
+\item{category_size}{category_size}
 }
 \description{
-Gene-Concept Network Plot
+visualize the potentially biological complexities in which a gene may belong to multiple annotation categories and provide information of numeric changes if available
 convert gene ID to Symbol,to notice the default OrgDb and keytype we use is 'org.Hs.eg.db'(human) and
 }

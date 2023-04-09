@@ -4,8 +4,13 @@
 \alias{show_dotplot}
 \title{Dotplot}
 \usage{
-show_dotplot(edo, showCategory_num, dotpf_name)
+show_dotplot(edo, showCategory_num)
+}
+\arguments{
+\item{edo}{large enrichResult}
+
+\item{showCategory_num}{specify the number of terms (most significant) or selected terms to display}
 }
 \description{
-generate the dotplot for gene interactome
+method to visualize enriched terms via dot plot
 }

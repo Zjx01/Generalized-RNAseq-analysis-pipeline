@@ -4,11 +4,9 @@
 \alias{load_data}
 \title{Load the data}
 \usage{
-load_data(dir, file)
+load_data(file)
 }
 \arguments{
-\item{dir}{The working directory}
-
 \item{file}{The path of rnaseq raw count}
 }
 \description{

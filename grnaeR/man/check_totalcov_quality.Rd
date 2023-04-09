@@ -6,6 +6,9 @@
 \usage{
 check_totalcov_quality(readcount)
 }
+\arguments{
+\item{readcount}{input: data frame/list object}
+}
 \description{
 data quality control: check the total coverage
 }
