@@ -1,13 +1,13 @@
-#how to make a workflow
-library('dplyr')
-library('ggplot2')
+# how to make a workflow
+library("dplyr")
+library("ggplot2")
 library("pheatmap")
 library("RColorBrewer")
-library('DESeq2')
-library('AnnotationDbi')
-library('org.Hs.eg.db')
-library('cowplot')
-library('BiocGenerics')
+library("DESeq2")
+library("AnnotationDbi")
+library("org.Hs.eg.db")
+library("cowplot")
+library("BiocGenerics")
 library("SummarizedExperiment")
 
 
@@ -15,8 +15,8 @@ library("SummarizedExperiment")
 #' @param file The path of rnaseq raw count
 #' @importFrom utils read.delim
 #' @export
-load_data<-function(file){
-  readcount = read.delim(file,sep = '',row.names = 1)
+load_data <- function(file) {
+  readcount <- read.delim(file, sep = "", row.names = 1)
   return(readcount)
 }
 
@@ -24,11 +24,11 @@ load_data<-function(file){
 #'
 #' @param readcount input: data frame/list object
 #' @export
-check_exonlength <- function(readcount){
-  if('exonlength' %in% colnames(readcount)){
-    exon_Exist = TRUE
-  }else{
-    exon_Exist = FALSE
+check_exonlength <- function(readcount) {
+  if ("exonlength" %in% colnames(readcount)) {
+    exon_Exist <- TRUE
+  } else {
+    exon_Exist <- FALSE
   }
   return(exon_Exist)
 }
@@ -38,12 +38,12 @@ check_exonlength <- function(readcount){
 #' @param readcount input: data frame/list object
 #' @importFrom graphics barplot
 #' @export
-check_totalcov_quality<-function(readcount){
-  if(check_exonlength(readcount)){
-    readcount = readcount[,-dim(readcount)[2]]
+check_totalcov_quality <- function(readcount) {
+  if (check_exonlength(readcount)) {
+    readcount <- readcount[, -dim(readcount)[2]]
   }
-  total.cov = apply(readcount,2,sum)
-  barplot(total.cov,las=2,ylab="log10(total counts over genes)")
+  total.cov <- apply(readcount, 2, sum)
+  barplot(total.cov, las = 2, ylab = "log10(total counts over genes)")
   return(total.cov)
 }
 
@@ -52,12 +52,12 @@ check_totalcov_quality<-function(readcount){
 #' @param readcount input: data frame/list object
 #' @importFrom graphics barplot
 #' @export
-check_genecovered_quality<-function(readcount){
-  if(check_exonlength(readcount)){
-    readcount = readcount[,-dim(readcount)[2]]
+check_genecovered_quality <- function(readcount) {
+  if (check_exonlength(readcount)) {
+    readcount <- readcount[, -dim(readcount)[2]]
   }
-  genecovered = apply(readcount,2,function(x) sum(x>0))
-  barplot(genecovered,las=2,ylab ="gene covered")
+  genecovered <- apply(readcount, 2, function(x) sum(x > 0))
+  barplot(genecovered, las = 2, ylab = "gene covered")
   return(genecovered)
 }
 
@@ -65,19 +65,19 @@ check_genecovered_quality<-function(readcount){
 #'
 #' @param readcount input: data frame/list object
 #' @export
-calculate_RPKM = function(readcount){
-  if(check_exonlength(readcount)){
-    rpk = readcount/readcount$exonlength*10^3
-    rpkm = rpk[,-dim(readcount)[2]+1]
-    total.cov = check_totalcov_quality(readcount)
-    #calculate RPKM
-    for (i in 1:dim(readcount)[2]){
-      rpkm[,i]=rpk[,i]/total.cov[i]*10^6
+calculate_RPKM <- function(readcount) {
+  if (check_exonlength(readcount)) {
+    rpk <- readcount / readcount$exonlength * 10^3
+    rpkm <- rpk[, -dim(readcount)[2] + 1]
+    total.cov <- check_totalcov_quality(readcount)
+    # calculate RPKM
+    for (i in 1:dim(readcount)[2]) {
+      rpkm[, i] <- rpk[, i] / total.cov[i] * 10^6
     }
-  }else{
-   return(
-     "the exonlength should be contained in provided file to calculate RPKM"
-   )
+  } else {
+    return(
+      "the exonlength should be contained in provided file to calculate RPKM"
+    )
   }
 }
 
@@ -90,24 +90,25 @@ calculate_RPKM = function(readcount){
 #' @importFrom BiocGenerics estimateSizeFactors
 #' @importFrom utils read.table
 #' @export
-load_data_for_DESeq2 <- function(file,condition_vector,type_vector){
-
-  if( typeof(file) == "character" ){
-    readcount = read.table(file,header = T,row.names = 1)
-  }else{
-    readcount = file
+load_data_for_DESeq2 <- function(file, condition_vector, type_vector) {
+  if (typeof(file) == "character") {
+    readcount <- read.table(file, header = T, row.names = 1)
+  } else {
+    readcount <- file
   }
 
-  configure = data.frame(condition = factor(condition_vector),type = type_vector)
+  configure <- data.frame(condition = factor(condition_vector), type = type_vector)
 
-  if(check_exonlength(readcount) == TRUE){
-    readcount = readcount[,-dim(readcount)[2]]
+  if (check_exonlength(readcount) == TRUE) {
+    readcount <- readcount[, -dim(readcount)[2]]
   }
 
-  dds <- DESeqDataSetFromMatrix(countData = readcount,
-                                colData = configure,
-                                design = ~ condition)
-  dds = estimateSizeFactors(dds)
+  dds <- DESeqDataSetFromMatrix(
+    countData = readcount,
+    colData = configure,
+    design = ~condition
+  )
+  dds <- estimateSizeFactors(dds)
   return(dds)
 }
 
@@ -118,12 +119,12 @@ load_data_for_DESeq2 <- function(file,condition_vector,type_vector){
 #' @importFrom DESeq2 rlog
 #' @importFrom DESeq2 vst
 #' @export
-normalize_dataset <- function(dds){
-  #we provide vst and rlog normalization and choose the methods based on sample sizes
-  if(dim(dds)[2]<=30){
-    normalized = rlog(dds,blind = FALSE)
-  }else{
-    normalized = vst(dds,blind = FALSE)
+normalize_dataset <- function(dds) {
+  # we provide vst and rlog normalization and choose the methods based on sample sizes
+  if (dim(dds)[2] <= 30) {
+    normalized <- rlog(dds, blind = FALSE)
+  } else {
+    normalized <- vst(dds, blind = FALSE)
   }
   return(normalized)
 }
@@ -139,16 +140,17 @@ normalize_dataset <- function(dds){
 #' @importFrom DESeq2 plotPCA
 #' @importFrom RColorBrewer brewer.pal
 #' @export
-check_sample_distance<-function(normalized_dds){
-  sampleDists = dist(t(assay(normalized_dds)))
-  sampleDistMatrix = as.matrix(sampleDists)
-  rownames(sampleDistMatrix) = paste(normalized_dds$type,normalized_dds$condition,sep = '-')
-  colors = colorRampPalette( rev(brewer.pal(9, "Blues")) )(255)
+check_sample_distance <- function(normalized_dds) {
+  sampleDists <- dist(t(assay(normalized_dds)))
+  sampleDistMatrix <- as.matrix(sampleDists)
+  rownames(sampleDistMatrix) <- paste(normalized_dds$type, normalized_dds$condition, sep = "-")
+  colors <- colorRampPalette(rev(brewer.pal(9, "Blues")))(255)
   pheatmap(sampleDistMatrix,
-           clustering_distance_rows = sampleDists,
-           clustering_distance_cols = sampleDists,
-           color = colors)
-  #plot PCA as well
+    clustering_distance_rows = sampleDists,
+    clustering_distance_cols = sampleDists,
+    color = colors
+  )
+  # plot PCA as well
   plotPCA(normalized_dds)
 }
 
@@ -164,46 +166,44 @@ check_sample_distance<-function(normalized_dds){
 #' @importFrom DESeq2 results
 #' @importFrom AnnotationDbi mapIds
 #' @export
-select_DEG <- function(dds,filter_thresh = 0,log2_fc = 0.58, padjust=0.05){
-  pre_count_num = dim(counts(dds))
-  keep = rowSums(counts(dds)) > filter_thresh
-  dds = dds[keep,]
-  after_count_num = dim(counts(dds))
-  filtered_num = pre_count_num[1] - after_count_num[1]
-  print(paste("filtering",filtered_num,"genes with low counts"),sep = ' ')
+select_DEG <- function(dds, filter_thresh = 0, log2_fc = 0.58, padjust = 0.05) {
+  pre_count_num <- dim(counts(dds))
+  keep <- rowSums(counts(dds)) > filter_thresh
+  dds <- dds[keep, ]
+  after_count_num <- dim(counts(dds))
+  filtered_num <- pre_count_num[1] - after_count_num[1]
+  print(paste("filtering", filtered_num, "genes with low counts"), sep = " ")
 
-  dds = DESeq(dds)
-  res = results(dds)
+  dds <- DESeq(dds)
+  res <- results(dds)
 
-  target_res = results(dds,alpha = padjust , lfcThreshold = log2_fc)
+  target_res <- results(dds, alpha = padjust, lfcThreshold = log2_fc)
   summary(target_res)
 
-  target_res <- subset(target_res,padj <= padjust & abs(log2FoldChange) >= log2_fc)
+  target_res <- subset(target_res, padj <= padjust & abs(log2FoldChange) >= log2_fc)
 
-  if(startsWith(rownames(target_res)[2],'ENSG')==TRUE){
-    gene_name = mapIds(org.Hs.eg.db,
-                       keys = row.names(target_res),
-                       column = "SYMBOL",
-                       keytype = "ENSEMBL",
-                       multiVals = "first")
+  if (startsWith(rownames(target_res)[2], "ENSG") == TRUE) {
+    gene_name <- mapIds(org.Hs.eg.db,
+      keys = row.names(target_res),
+      column = "SYMBOL",
+      keytype = "ENSEMBL",
+      multiVals = "first"
+    )
 
-    target_res  = cbind(gene_name,target_res)
-  }else if(grepl("^[0-9]+$", rownames(target_res)[2])==TRUE){
+    target_res <- cbind(gene_name, target_res)
+  } else if (grepl("^[0-9]+$", rownames(target_res)[2]) == TRUE) {
+    gene_name <- mapIds(org.Hs.eg.db,
+      keys = row.names(target_res),
+      column = "SYMBOL",
+      keytype = "ENTREZID",
+      multiVals = "first"
+    )
 
-    gene_name = mapIds(org.Hs.eg.db,
-                         keys = row.names(target_res),
-                         column = "SYMBOL",
-                         keytype = "ENTREZID",
-                         multiVals = "first")
-
-    target_res  = cbind(gene_name,target_res)
-
-  }else{
-    target_res = as.data.frame(target_res)
+    target_res <- cbind(gene_name, target_res)
+  } else {
+    target_res <- as.data.frame(target_res)
   }
 
-  #write_csv(DEG,'DEG.csv'),
+  # write_csv(DEG,'DEG.csv'),
   return(target_res)
 }
-
-
