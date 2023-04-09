@@ -28,7 +28,15 @@ jobs:
         with:  # also install styler & lintr
           extra-packages: any::rcmdcheck, any::styler, any::lintr
           needs: check
-          working-directory: bionitio
+          working-directory: 
+          
+          
+          
+          
+          
+          
+          
+          
       - name: Configure git # use the environment variable we set above
         run: |
           git config --local user.email "${actor}@users.noreply.github.com"
@@ -37,7 +45,7 @@ jobs:
         uses: r-lib/actions/check-r-package@v2
         with:
           args: 'c("--no-manual", "--as-cran")'
-          working-directory: bionitio
+          working-directory: grnaeR
       - name: Style & lint
         run: |
             styler::style_dir(".")
