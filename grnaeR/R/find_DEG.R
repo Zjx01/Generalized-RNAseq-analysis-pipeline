@@ -162,6 +162,7 @@ check_sample_distance<-function(normalized_dds){
 #' @importFrom BiocGenerics counts
 #' @importFrom DESeq2 DESeq
 #' @importFrom DESeq2 results
+#' @importFrom AnnotationDbi mapIds
 #' @export
 select_DEG <- function(dds,filter_thresh = 0,log2_fc = 0.58, padjust=0.05){
   pre_count_num = dim(counts(dds))

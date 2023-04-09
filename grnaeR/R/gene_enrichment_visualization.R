@@ -31,6 +31,7 @@ filter_genelist<-function(geneList,standard_fc){
 #' Bar plot is the most widely used method to visualize enriched terms. It depicts the enrichment scores (e.g. p values) and gene count or ratio as bar height and color
 #' @param edo large enrichResult
 #' @param showCategory_num specify the number of terms (most significant) or selected terms to display
+#' @importFrom graphics barplot
 #' @export
 show_barplot<-function(edo,showCategory_num){
   bar_plot<-barplot(edo, showCategory=showCategory_num)
@@ -49,6 +50,7 @@ show_barplot<-function(edo,showCategory_num){
 #' @importFrom DOSE gseDO
 #' @importFrom enrichplot dotplot
 #' @importFrom ggpubr ggarrange
+#' @importFrom ggplot2 ggtitle
 #' @export
 #'
 show_dotplot<-function(edo,showCategory_num){

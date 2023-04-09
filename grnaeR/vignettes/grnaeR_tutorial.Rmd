@@ -64,7 +64,7 @@ Here, we call the filter_genelist function to select interested genes with abolu
 
 
 ```{r filter_genelist}
-edo <- grnaeR::filter_genelist(geneList,standard_fc = 2)
+edo <- filter_genelist(geneList,standard_fc = 2)
 ```
 
 
@@ -121,7 +121,7 @@ condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
 
 load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
 ```{r}
-dds = grnaeR::load_data_for_DESeq2(file,condition_vector,type_vector)
+dds = load_data_for_DESeq2(file,condition_vector,type_vector)
 normalized_dds = normalize_dataset(dds)
 check_sample_distance(normalized_dds)
 ```
