@@ -45,7 +45,7 @@ test_that('check the generation of gene network',{
 
 
 
-file = '/Users/jesi/Documents/CRS_34v0.txt'
+file = paste(system.file('extdata', package = "grnaeR"),system.file('extdata', package = "grnaeR")|>list.files(),sep = '/')
 readcount = load_data(file)
 
 test_that('check calculate_RPKM',{
@@ -63,6 +63,6 @@ test_that('integration test for find_DEG',{
   normalized_dds = normalize_dataset(dds)
 
   select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padj=0.05)
-  expect_equal(typeof(select_DEGs),"list")
+  expect_equal(typeof(select_DEGs),"S4")
 })
 
