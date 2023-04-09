@@ -18,12 +18,13 @@ Make sure you have had installed the package and example data
 
 
 ```{r}
-if (!require("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-    BiocManager::install("DOSE")
+if (!require("BiocManager", quietly = TRUE)) {
+  install.packages("BiocManager")
+}
+BiocManager::install("DOSE")
 
 # Notice: the package should reside under current working directory for installation
-install.packages('grnaeR_0.1.0.tar.gz',repos = NULL)
+install.packages("grnaeR_0.1.0.tar.gz", repos = NULL)
 ```
 
 
@@ -33,12 +34,12 @@ Load the example data geneList
 ```{r load packages}
 library(DOSE)
 data(geneList)
-library('grnaeR')
+library("grnaeR")
 library(enrichplot)
 library(ggpubr)
-library('org.Hs.eg.db')
+library("org.Hs.eg.db")
 library(DESeq2)
-library('RColorBrewer')
+library("RColorBrewer")
 library("pheatmap")
 ```
 The package conflict still exist, effort should be paid to solve the problem
@@ -47,24 +48,23 @@ The package conflict still exist, effort should be paid to solve the problem
 
 Here, we call the filter_genelist function to select interested genes with abolute value greater than assigned threshold and convert to large enrichResult
 ```{r filter_genelist}
-edo <- filter_genelist(geneList,standard_fc = 2)
+edo <- filter_genelist(geneList, standard_fc = 2)
 ```
 
 Then, we try to visualize the example data in the format of barplot, dotplot and gene_network 
 
 ```{r barplot}
-barplot <- grnaeR::show_barplot(edo,showCategory_num = 20)
+barplot <- grnaeR::show_barplot(edo, showCategory_num = 20)
 barplot
-
 ```
 
 
 ```{r dotplot}
-dotplot<-grnaeR::show_dotplot(edo,showCategory_num=30)
+dotplot <- grnaeR::show_dotplot(edo, showCategory_num = 30)
 dotplot
 ```
 ```{r}
-gene_network <- grnaeR::develop_Gene_Network(edo,geneList)
+gene_network <- grnaeR::develop_Gene_Network(edo, geneList)
 gene_network
 ```
 
@@ -75,20 +75,20 @@ gene_network
 load the example data CRS_34v0 
 ```{r loaddata}
 # working directory
-dir = getwd()
+dir <- getwd()
 # file The path of rnaseq raw count
-file = '/Users/jesi/Documents/CRS_34v0.txt'
-readcount = grnaeR::load_data(dir,file)
+file <- "/Users/jesi/Documents/CRS_34v0.txt"
+readcount <- grnaeR::load_data(dir, file)
 ```
 
 Perform quality control: check the total coverage 
 ```{r totalcov_check}
-total.cov = grnaeR:: check_totalcov_quality(readcount)
+total.cov <- grnaeR::check_totalcov_quality(readcount)
 ```
 
 quality control: check the number of genes being covered
 ```{r genecov_check}
-gene.cov = grnaeR:: check_genecovered_quality(readcount)
+gene.cov <- grnaeR::check_genecovered_quality(readcount)
 ```
 
 ```{r checkRPKM}
@@ -98,20 +98,20 @@ grnaeR::calculate_RPKM(readcount)
 
 Next, we need to specifies configure and types used for the design of our  data. Since the example data contains 4 patient samples develop CRS and 5 samples without CRS, we set the condition vector to describe the CRS condition, while the type_vector represents the individual sample.
 ```{r}
-type_vector = c(colnames(readcount))
-condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
+type_vector <- c(colnames(readcount))
+condition_vector <- c(c(rep("CRS", 4)), c(rep("noCRS", 5)))
 ```
 
 load the data into DESeq2 object and normalized the dataset, further check the similarity between samples
 ```{r}
-dds = grnaeR::load_data_for_DESeq2(file,condition_vector,type_vector)
-normalized_dds = normalize_dataset(dds)
+dds <- grnaeR::load_data_for_DESeq2(file, condition_vector, type_vector)
+normalized_dds <- normalize_dataset(dds)
 check_sample_distance(normalized_dds)
 ```
 
 obtain the dataframe of the differentially expressed genes
 ```{r}
-select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padjust = 0.05)
+select_DEGs <- select_DEG(dds = dds, filter_thresh = 0, log2_fc = log(1.5, 2), padjust = 0.05)
 select_DEGs
 ```
 
