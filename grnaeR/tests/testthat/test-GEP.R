@@ -45,7 +45,7 @@ test_that('check the generation of gene network',{
 
 
 
-file = '/Users/jesi/Documents/CRS_34v0.txt'
+file = paste(system.file('extdata', package = "grnaeR"),system.file('extdata', package = "grnaeR")|>list.files(),sep = '/')
 readcount = load_data(file)
 
 test_that('check calculate_RPKM',{
