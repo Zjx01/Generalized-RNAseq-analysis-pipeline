@@ -45,9 +45,8 @@ test_that('check the generation of gene network',{
 
 
 
-dir = '/Users/jesi/Documents/Generalized-RNAseq-analysis-pipeline'
 file = '/Users/jesi/Documents/CRS_34v0.txt'
-readcount = load_data(dir,file)
+readcount = load_data(file)
 
 test_that('check calculate_RPKM',{
   expect_equal(calculate_RPKM(readcount),"the exonlength should be contained in provided file to calculate RPKM")
@@ -59,8 +58,10 @@ test_that('integration test for find_DEG',{
   condition_vector = c(c(rep('CRS',4)),c(rep('noCRS',5)))
   type_vector = c(colnames(readcount))
   dds = load_data_for_DESeq2(file,condition_vector,type_vector)
+
   expect_equal(class(dds)[1],"DESeqDataSet")
   normalized_dds = normalize_dataset(dds)
+
   select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = log(1.5,2), padj=0.05)
   expect_equal(typeof(select_DEGs),"list")
 })

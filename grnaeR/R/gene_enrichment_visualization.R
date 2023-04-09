@@ -12,6 +12,7 @@ library('ggplot2')
 #' @param genelist should be a list of gene foldchange level or with names of geneID
 #' @param standard_fc the foldchange threshold for filtering
 #' @return edo object
+#' @importFrom enrichplot enrichDGN
 #' @export
 filter_genelist<-function(geneList,standard_fc){
   if(length(geneList)==0){
@@ -45,11 +46,16 @@ show_barplot<-function(edo,showCategory_num){
 #' method to visualize enriched terms via dot plot
 #' @param edo large enrichResult
 #' @param showCategory_num specify the number of terms (most significant) or selected terms to display
+#' @importFrom DOSE gseDO
+#' @importFrom enrichplot dotplot
+#' @importFrom ggpubr ggarrange
 #' @export
 #'
 show_dotplot<-function(edo,showCategory_num){
   edo2 <- gseDO(geneList) #edo2 is large gseaResult
+  # over representation analysis
   ORA_dotplot <- dotplot(edo, showCategory = showCategory_num) + ggtitle("dotplot for ORA")
+  # gene set enrichment analysis
   GSEA_dotplot <- dotplot(edo2, showCategory = showCategory_num) + ggtitle("dotplot for GSEA")
   ggarrange(ORA_dotplot,GSEA_dotplot,nrow = 1,ncol = 2)
 }
@@ -67,38 +73,35 @@ show_dotplot<-function(edo,showCategory_num){
 #' @param category_size
 #' @param keyType
 #' @param OrgDb defaulted
+#' @importFrom DOSE setReadable
+#' @importFrom enrichplot cnetplot
 #' @export
 
 develop_Gene_Network <- function(edo,geneList,OrgDb = 'org.Hs.eg.db',keyType = 'ENTREZID',category_size = 'pvalue'){
+  #map geneID to gene Symbol
+  options(ggrepel.max.overlaps = Inf)
   edox <- setReadable(edo, OrgDb, keyType)
-  p1 <- cnetplot(edox, color.params = list(foldChange = geneList),max.overlaps = Inf)
   ## categorySize can be scaled by 'pvalue' or 'geneNum'
-  p2 <- cnetplot(edox, categorySize= category_size, color.params = list(foldChange = geneList), max.overlaps = Inf)
-  p3 <- cnetplot(edox, color.params = list(foldChange = geneList), circular = TRUE, max.overlaps = Inf)
-  cowplot::plot_grid(p1, p2, p3, ncol=3, labels=LETTERS[1:3], rel_widths=c(.8, .8, 1.2))
+  p1 <- cnetplot(edox, categorySize= category_size, color.params = list(foldChange = geneList), max.overlaps = Inf)
 }
 
 
-#develop_Gene_Network(edo,geneList)
 # Function to plot edo output as a network
 #' @param edo large enrichResult
 #' @param cex_category The cex_category parameter can be used to resize nodes
+#' @importFrom enrichplot pairwise_termsim
+#' @importFrom enrichplot emapplot
 #' @export
 
 enrichmap <- function(edo,cex_category=1.1){
-  
   # Ignore/omit warnings that objects will overlap and maximize size to avoid overlap
   options(ggrepel.max.overlaps = Inf)
-  
   # Define enrichment result object
   edo <- pairwise_termsim(edo)
-  
   # Default emap plot 1
   p1 <- emapplot(edo)
-  
   # Change node size using cex.params
   p2 <- emapplot(edo, cex.params = list(category_node = cex_category))
-  
   # Return a list as cowplot to combine figures
   cowplot::plot_grid(p1, p2, ncol=2, labels=LETTERS[1:2])
 }
