@@ -25,8 +25,8 @@ jobs:
       # a custom step that runs a couple shell commands
       - name: List
         run: |
-            echo "listing files in the bioinitio directory"
-            ls bionitio
+            echo "listing files in the grnaeR directory"
+            ls grnaeR
       # a custom step that runs R code
       - name: Greet
         run: print("Hello, world!")
