@@ -13,6 +13,7 @@ library("SummarizedExperiment")
 
 #' Load the data
 #' @param file The path of rnaseq raw count
+#' @importFrom utils read.delim
 #' @export
 load_data<-function(file){
   readcount = read.delim(file,sep = '',row.names = 1)
@@ -35,6 +36,7 @@ check_exonlength <- function(readcount){
 #' data quality control: check the total coverage
 #'
 #' @param readcount input: data frame/list object
+#' @importFrom graphics barplot
 #' @export
 check_totalcov_quality<-function(readcount){
   if(check_exonlength(readcount)){
@@ -48,6 +50,7 @@ check_totalcov_quality<-function(readcount){
 #' data quality control: check the number of genes being covered
 #'
 #' @param readcount input: data frame/list object
+#' @importFrom graphics barplot
 #' @export
 check_genecovered_quality<-function(readcount){
   if(check_exonlength(readcount)){
@@ -85,6 +88,7 @@ calculate_RPKM = function(readcount){
 #' @param type_vector the type/design of samples
 #' @importFrom DESeq2 DESeqDataSetFromMatrix
 #' @importFrom BiocGenerics estimateSizeFactors
+#' @importFrom utils read.table
 #' @export
 load_data_for_DESeq2 <- function(file,condition_vector,type_vector){
 
@@ -133,6 +137,7 @@ normalize_dataset <- function(dds){
 #' @importFrom grDevices colorRampPalette
 #' @importFrom pheatmap pheatmap
 #' @importFrom DESeq2 plotPCA
+#' @importFrom RColorBrewer brewer.pal
 #' @export
 check_sample_distance<-function(normalized_dds){
   sampleDists = dist(t(assay(normalized_dds)))
@@ -142,7 +147,7 @@ check_sample_distance<-function(normalized_dds){
   pheatmap(sampleDistMatrix,
            clustering_distance_rows = sampleDists,
            clustering_distance_cols = sampleDists,
-           col = colors)
+           color = colors)
   #plot PCA as well
   plotPCA(normalized_dds)
 }
@@ -154,7 +159,9 @@ check_sample_distance<-function(normalized_dds){
 #' @param filter_thresh the threshold to remove genes with expression level lower than this
 #' @param log2_fc log2foldchange to filter the significant genes
 #' @param padjust adjusted p value to filter the significant genes
+#' @importFrom BiocGenerics counts
 #' @importFrom DESeq2 DESeq
+#' @importFrom DESeq2 results
 #' @export
 select_DEG <- function(dds,filter_thresh = 0,log2_fc = 0.58, padjust=0.05){
   pre_count_num = dim(counts(dds))
