@@ -1,5 +1,7 @@
 # generalized RNAseq analysis pipeline (under development)
 
+[![grnaeR](https://github.com/Zjx01/Generalized-RNAseq-analysis-pipeline/actions/workflows/grnae.yml/badge.svg?branch=main)](https://github.com/Zjx01/Generalized-RNAseq-analysis-pipeline/actions/workflows/grnae.yml)
+
 we aim to develop a general RNA-seq analysis workflow, starting from differential gene expressions detection to follow-up pathway analysis, providing a one-button pipieline and easing the tedious procedures. A major prominent part of the project is that the pipeline provides various visualization methods in gene enrichment and pathway analysis, contributing to the comprehension of the underlying biological pathogenesis. 
 
 
