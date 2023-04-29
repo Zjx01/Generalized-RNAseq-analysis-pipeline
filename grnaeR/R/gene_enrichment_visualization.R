@@ -48,12 +48,13 @@ show_barplot <- function(edo, showCategory_num) {
 #' @param edo large enrichResult
 #' @param showCategory_num specify the number of terms (most significant) or selected terms to display
 #' @importFrom DOSE gseDO
+#' @param  geneList genelist object
 #' @importFrom enrichplot dotplot
 #' @importFrom ggpubr ggarrange
 #' @importFrom ggplot2 ggtitle
 #' @export
 #'
-show_dotplot <- function(edo, showCategory_num) {
+show_dotplot <- function(edo,geneList,showCategory_num) {
   edo2 <- gseDO(geneList) # edo2 is large gseaResult
   # over representation analysis
   ORA_dotplot <- dotplot(edo, showCategory = showCategory_num) + ggtitle("dotplot for ORA")

@@ -4,10 +4,12 @@
 \alias{show_dotplot}
 \title{Dotplot}
 \usage{
-show_dotplot(edo, showCategory_num)
+show_dotplot(edo, geneList, showCategory_num)
 }
 \arguments{
 \item{edo}{large enrichResult}
+
+\item{geneList}{genelist object}
 
 \item{showCategory_num}{specify the number of terms (most significant) or selected terms to display}
 }
