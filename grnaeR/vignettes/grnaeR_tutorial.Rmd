@@ -75,7 +75,7 @@ barplot
 
 
 ```{r fig.width=14, fig.height=12}
-dotplot <- show_dotplot(edo,geneList, showCategory_num = 30)
+dotplot <- show_dotplot(edo, geneList, showCategory_num = 30)
 dotplot
 ```
 

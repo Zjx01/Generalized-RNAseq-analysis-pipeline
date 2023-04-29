@@ -54,7 +54,7 @@ show_barplot <- function(edo, showCategory_num) {
 #' @importFrom ggplot2 ggtitle
 #' @export
 #'
-show_dotplot <- function(edo,geneList,showCategory_num) {
+show_dotplot <- function(edo, geneList, showCategory_num) {
   edo2 <- gseDO(geneList) # edo2 is large gseaResult
   # over representation analysis
   ORA_dotplot <- dotplot(edo, showCategory = showCategory_num) + ggtitle("dotplot for ORA")
