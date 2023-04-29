@@ -27,29 +27,31 @@ In this tutorial, we will use the 8 RNAseq dataset from *William Pastor et al., 
 |GSM2041715  | 8   |  rep4     | Naive_hESC  | 
 
 ```{r integrate the data}
-#read in the primed hESC RNAseq raw count 
-primed_hESC_rep1 <- read.delim('/Users/jesi/Documents/real_Data/GSM2041708_RNAseq_UCLA1_Primed_rep1_readsCount.txt',row.names = 1)
-primed_hESC_rep2 <- read.delim('/Users/jesi/Documents/real_Data/GSM2041709_RNAseq_UCLA1_Primed_rep2_readsCount.txt',,row.names = 1)
-primed_hESC_rep3  <-read.delim('/Users/jesi/Documents/real_Data/GSM2041710_RNAseq_UCLA1_Primed_rep3_readsCount.txt',row.names = 1)
-primed_hESC_rep4  <-read.delim('/Users/jesi/Documents/real_Data/GSM2041711_RNAseq_UCLA1_Primed_rep4_readsCount.txt',row.names = 1)
+# read in the primed hESC RNAseq raw count
+primed_hESC_rep1 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041708_RNAseq_UCLA1_Primed_rep1_readsCount.txt", row.names = 1)
+primed_hESC_rep2 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041709_RNAseq_UCLA1_Primed_rep2_readsCount.txt", , row.names = 1)
+primed_hESC_rep3 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041710_RNAseq_UCLA1_Primed_rep3_readsCount.txt", row.names = 1)
+primed_hESC_rep4 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041711_RNAseq_UCLA1_Primed_rep4_readsCount.txt", row.names = 1)
 
-#read in the naive hESC RNAseq raw count 
-naive_hESC_rep1 <- read.delim('/Users/jesi/Documents/real_Data/GSM2041712_RNAseq_SSEA4_neg_rep1_readCounts.txt',row.names = 1)
-naive_hESC_rep2 <- read.delim('/Users/jesi/Documents/real_Data/GSM2041713_RNAseq_SSEA4_neg_rep2_readCounts.txt',row.names = 1)
-naive_hESC_rep3  <-read.delim('/Users/jesi/Documents/real_Data/GSM2041714_RNAseq_SSEA4_neg_rep3_readCounts.txt',row.names = 1)
-naive_hESC_rep4  <-read.delim('/Users/jesi/Documents/real_Data/GSM2041715_RNAseq_SSEA4_neg_rep4_readsCount.txt',row.names = 1)
+# read in the naive hESC RNAseq raw count
+naive_hESC_rep1 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041712_RNAseq_SSEA4_neg_rep1_readCounts.txt", row.names = 1)
+naive_hESC_rep2 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041713_RNAseq_SSEA4_neg_rep2_readCounts.txt", row.names = 1)
+naive_hESC_rep3 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041714_RNAseq_SSEA4_neg_rep3_readCounts.txt", row.names = 1)
+naive_hESC_rep4 <- read.delim("/Users/jesi/Documents/real_Data/GSM2041715_RNAseq_SSEA4_neg_rep4_readsCount.txt", row.names = 1)
 
 head(primed_hESC_rep4)
-readcount = data.frame(naive_hESC_rep1,
-                       naive_hESC_rep2,
-                       naive_hESC_rep3,
-                       naive_hESC_rep4,
-                       primed_hESC_rep1,
-                       primed_hESC_rep2,
-                       primed_hESC_rep3,
-                       primed_hESC_rep4)
+readcount <- data.frame(
+  naive_hESC_rep1,
+  naive_hESC_rep2,
+  naive_hESC_rep3,
+  naive_hESC_rep4,
+  primed_hESC_rep1,
+  primed_hESC_rep2,
+  primed_hESC_rep3,
+  primed_hESC_rep4
+)
 
-colnames(readcount) = c(paste(rep('naive_hESC_rep',4),c(1:4),sep=''),paste(rep('primed_hESC_rep',4),c(1:4),sep=''))
+colnames(readcount) <- c(paste(rep("naive_hESC_rep", 4), c(1:4), sep = ""), paste(rep("primed_hESC_rep", 4), c(1:4), sep = ""))
 # convert variable name as str: deparse(substitute(data))
 ```
 
@@ -57,34 +59,34 @@ We import the necessary libraries to analyze the data
 ```{r import grnaeR library}
 library(grnaeR)
 library(DESeq2)
-library('ggplot2')
+library("ggplot2")
 library("pheatmap")
 library("RColorBrewer")
-library('AnnotationDbi')
-library('org.Hs.eg.db')
+library("AnnotationDbi")
+library("org.Hs.eg.db")
 library(DOSE)
 ```
 
 #### 1.2 Check the data quality
 ```{r}
-total.cov = check_totalcov_quality(readcount)
+total.cov <- check_totalcov_quality(readcount)
 ```
 From this plot, we can see that the coverage of all those 8 samples are in the same magnitude indicating they got sequenced evenly.
 
 
 ```{r}
-gene.cov = check_genecovered_quality(readcount)
+gene.cov <- check_genecovered_quality(readcount)
 ```
 From this plot, we can see that most genes (18k+) are covered in all 8 samples, and the number of genes detected in each library is similar.
 
 
 #### 1.2 Load data into Deseq2
 ```{r}
-condition_vector = c(c(rep('naive',4)),c(rep('primed',4)))
-type_vector = c(rep(paste(rep('r',4),c(1:4),sep=''),2))
+condition_vector <- c(c(rep("naive", 4)), c(rep("primed", 4)))
+type_vector <- c(rep(paste(rep("r", 4), c(1:4), sep = ""), 2))
 
-dds = load_data_for_DESeq2(readcount,condition_vector,type_vector)
-normalized_dds = normalize_dataset(dds)
+dds <- load_data_for_DESeq2(readcount, condition_vector, type_vector)
+normalized_dds <- normalize_dataset(dds)
 check_sample_distance(normalized_dds)
 ```
 We can see that there is a clear distance between the naive and primmed hESCs, suggesting the difference of their gene expresssion pattern.
@@ -92,7 +94,7 @@ We can see that there is a clear distance between the naive and primmed hESCs, s
 
 Next, we try to select out the differentially expressed genes between the primmed and naive human embryonic stem cells. We filtered the lowly expressed genes with no expression(total expression level > 0) and defined the genes which have absolute log2foldchange greater than 1 and adjusted p value smaller than 0.05 to be the differentially expressed genes.
 ```{r}
-select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = 1, padjust = 0.05)
+select_DEGs <- select_DEG(dds = dds, filter_thresh = 0, log2_fc = 1, padjust = 0.05)
 ```
 
 Here, we displayed part of the differentially expressed genes between the primed and naive human embryonic stem cells.
@@ -102,44 +104,45 @@ head(select_DEGs)
 
 Later, we try to convert the DEGS from SYMBOL ID to ENSEMBLE ID to enable the further visualization, only the genes can be annotated with ENSEMBLE ID are used here.
 ```{r}
-gene_name = mapIds(org.Hs.eg.db,
-                     keys = row.names(select_DEGs),
-                     column = "ENTREZID",
-                     keytype = "SYMBOL",
-                     multiVals = "first")
+gene_name <- mapIds(org.Hs.eg.db,
+  keys = row.names(select_DEGs),
+  column = "ENTREZID",
+  keytype = "SYMBOL",
+  multiVals = "first"
+)
 
-target_genes = as.data.frame(cbind('symbol_name' = row.names(select_DEGs),gene_name))
+target_genes <- as.data.frame(cbind("symbol_name" = row.names(select_DEGs), gene_name))
 target_genes <- target_genes[complete.cases(target_genes), ]
 
-DEGS <- subset(normalized_dds@assays@data@listData[[1]],rownames(normalized_dds@assays@data@listData[[1]]) %in% rownames(target_genes)==TRUE)
+DEGS <- subset(normalized_dds@assays@data@listData[[1]], rownames(normalized_dds@assays@data@listData[[1]]) %in% rownames(target_genes) == TRUE)
 ```
 
 To further visualize the reult, we
 ```{r}
 DEG_genename <- c()
-for(i in rownames(DEGS)){
-  genename = subset(target_genes,symbol_name == i)$gene_name
-  DEG_genename <- c(DEG_genename,genename)
+for (i in rownames(DEGS)) {
+  genename <- subset(target_genes, symbol_name == i)$gene_name
+  DEG_genename <- c(DEG_genename, genename)
 }
 rownames(DEGS) <- DEG_genename
-naive_mean <- rowMeans(DEGS[,1:4])
-edo <- filter_genelist(naive_mean,standard_fc = 2)
+naive_mean <- rowMeans(DEGS[, 1:4])
+edo <- filter_genelist(naive_mean, standard_fc = 2)
 ```
 
 
 We can see that the differentially expressed genes in naive cells are involved in following enriched terms. It depicts the enrichment scores (e.g. p values) and gene count or ratio as bar height and color. 
 ```{r}
-barplot <- show_barplot(edo,showCategory_num = 20)
+barplot <- show_barplot(edo, showCategory_num = 20)
 barplot
 ```
 And we can view the over representation analysis and gene set enrichment analysis in the naive human embryonic stem cells, to see the enriched pathways.
 ```{r fig.width=12, fig.height= 6.5}
-dotplot <- show_dotplot(edo,sort(naive_mean,decreasing = T),showCategory_num=30)
+dotplot <- show_dotplot(edo, sort(naive_mean, decreasing = T), showCategory_num = 30)
 dotplot
 ```
 Through visualization of gene network, we can more directly understand the interaction between genes and their role in involved pathways.
 ```{r}
-gene_network <-develop_Gene_Network(edo,naive_mean)
+gene_network <- develop_Gene_Network(edo, naive_mean)
 gene_network
 ```
 
