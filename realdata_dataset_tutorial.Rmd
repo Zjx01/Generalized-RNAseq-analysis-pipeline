@@ -53,8 +53,7 @@ colnames(readcount) = c(paste(rep('naive_hESC_rep',4),c(1:4),sep=''),paste(rep('
 # convert variable name as str: deparse(substitute(data))
 ```
 
-
-
+We import the necessary libraries to analyze the data
 ```{r import grnaeR library}
 library(grnaeR)
 library(DESeq2)
@@ -88,8 +87,10 @@ dds = load_data_for_DESeq2(readcount,condition_vector,type_vector)
 normalized_dds = normalize_dataset(dds)
 check_sample_distance(normalized_dds)
 ```
+We can see that there is a clear distance between the naive and primmed hESCs, suggesting the difference of their gene expresssion pattern.
 
 
+Next, we try to select out the differentially expressed genes between the primmed and naive human embryonic stem cells. We filtered the lowly expressed genes with no expression(total expression level > 0) and defined the genes which have absolute log2foldchange greater than 1 and adjusted p value smaller than 0.05 to be the differentially expressed genes.
 ```{r}
 select_DEGs = select_DEG(dds = dds,filter_thresh = 0,log2_fc = 1, padjust = 0.05)
 ```
