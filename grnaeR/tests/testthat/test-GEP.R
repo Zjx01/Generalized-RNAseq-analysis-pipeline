@@ -35,7 +35,7 @@ test_that("check the generation of barplot", {
 
 # Is it ok that we get several warning cases but the code itself works
 test_that("check the generation of dotplot", {
-  expect_equal(typeof(show_dotplot(edo, geneList,showCategory_num = 30)), "list")
+  expect_equal(typeof(show_dotplot(edo, geneList, showCategory_num = 30)), "list")
 })
 
 
